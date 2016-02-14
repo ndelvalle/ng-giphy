@@ -2,14 +2,15 @@
   'use strict';
 
   angular.module('ng-giphy', [])
-    .directive('giphyRand', giphyRand)
+    .directive('giphySearch', giphySearch)
     .directive('giphyGif', giphyGif)
+    .directive('giphyRand', giphyRand)
     .factory('giphy', giphyService);
 
   /**
-   * Directive: random gif
+   * Directive: search gif
    */
-  function giphyRand() {
+  function giphySearch() {
     return {
       scope: {
         q     : '=',
@@ -27,7 +28,7 @@
     var vm = this;
 
     var q = vm.q || 'cat';
-    giphy.random(q).then(function (res) {
+    giphy.search(q).then(function (res) {
       vm.giphysrc = res;
     });
   }
@@ -54,7 +55,33 @@
     var vm = this;
 
     var id = vm.id || 'YyKPbc5OOTSQE';
-    giphy.random(id).then(function (res) {
+    giphy.byId(id).then(function (res) {
+      vm.giphysrc = res;
+    });
+  }
+  
+  /**
+   * Directive: Random gif by tags
+   */
+  function giphyRand() {
+    return {
+      scope: {
+        q     : '=',
+        rating: '='
+      },
+      controller: giphyRandController,
+      controllerAs: 'vm',
+      bindToController: true,
+      template: '<img ng-src="{{ vm.giphysrc }}">'
+    };
+  }
+
+  giphyRandController.$inject = ['giphy'];
+  function giphyRandController(giphy) {
+    var vm = this;
+
+    var q = vm.q || 'YyKPbc5OOTSQE';
+    giphy.random(q).then(function (res) {
       vm.giphysrc = res;
     });
   }
@@ -64,24 +91,31 @@
    */
   giphyService.$inject = ['$http'];
   function giphyService($http) {
-    var searchUrl = 'http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC';
-    var byIdUrl = 'http://api.giphy.com/v1/gifs/%s?api_key=dc6zaTOxFJmzC'
+    var url ={
+      random: 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC',
+      search: 'http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC',
+      byId: 'http://api.giphy.com/v1/gifs/%s?api_key=dc6zaTOxFJmzC'
+    };
 
+    /**
+     * Expose the service API
+     */
     return {
+      search: search,
       random: random,
       byId: byId
     };
 
     /**
-     * Gets a random gif url
+     * Gets a search gif url
      * 
      * @param {string} query
      * @return {string} gif url
      */
-    function random(q){
+    function search(q){
       var words = q.split(' ');
       q = words.join('+')
-      return $http.get(searchUrl + '&q=' + q).then(function (res) {
+      return $http.get(url.search + '&q=' + q).then(function (res) {
         return res.data.data[0].images.original.url;
       });
     }
@@ -93,9 +127,23 @@
     * @return {string} gif url
     */
     function byId(id){
-      return $http.get( byIdUrl.replace('%s', id) ).then(function (res) {
-        console.log(res.data);
-        return res.data.url;
+      return $http.get( url.byId.replace('%s', id) ).then(function (res) {
+        return res.data.data.images.original.url;
+      });
+    }
+    
+    /**
+     * Gets a random gif url by tags
+     * 
+     * @param {string} query
+     * @return {string} gif url
+     */
+    function random(q){
+      var words = q.split(' ');
+      q = words.join('+')
+      return $http.get(url.random + '&tag=' + q).then(function (res) {
+        console.log(res.data, url.random + '&tag=' + q);
+        return res.data.data.image_url;
       });
     }
   }

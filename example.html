@@ -3,19 +3,24 @@
   <head>
   <style>
     .center {
+      width: 100%;
+      height: 100vh;
       display: flex;
       justify-content: space-around;
       align-items: center;
+      flex-wrap: wrap;
     }
   </style>
   </head>
   <body ng-app="ng-giphy">
 
     <div class="center">
-      <giphy-rand q="'dog'"></giphy-rand>
+      <giphy-search q='"memes"'></giphy-search>
+      <giphy-gif id='"qTpK7CsOq6T84"'></giphy-gif>
+      <giphy-rand q='"memes"'></giphy-rand>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
     <script src="src/ng-giphy.js"></script>
   </body>
 </html>
