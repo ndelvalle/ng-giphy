@@ -38,6 +38,8 @@
     };
 
     function random(q){
+      var words = q.split(' ');
+      q = words.join('+')
       return $http.get(apiurl + '&q=' + q).then(function (res) {
         console.log(res.data);
         return res.data.data[0].images.original.url;
