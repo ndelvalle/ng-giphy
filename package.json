@@ -1,0 +1,33 @@
+{
+  "name": "ng-giphy",
+  "version": "0.0.1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ndelvalle/ng-giphy.git"
+  },
+  "keywords": [
+    "angular",
+    "angularjs",
+    "gif",
+    "giphy"
+  ],
+  "author": "ndelvalle <nicolas.delvalle@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ndelvalle/ng-giphy/issues"
+  },
+  "homepage": "https://github.com/ndelvalle/ng-giphy",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.2",
+    "gulp-util": "^3.0.7"
+  },
+  "engines": {
+    "node": "4.3.0"
+  }
+}

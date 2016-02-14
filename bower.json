@@ -1,0 +1,27 @@
+{
+  "name": "ng-giphy",
+  "homepage": "https://github.com/ndelvalle/ng-giphy",
+  "authors": [
+    "ndelvalle <nicolas.delvalle@gmail.com>"
+  ],
+  "description": "An angular module that integrates the awesome giphy api",
+  "dependencies": {
+    "angular": "^1.4.9"
+  },
+  "resolutions": {
+    "angular": "~1.4.9"
+  },
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "angularjs",
+    "gif",
+    "giphy"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "test",
+    "tests"
+  ]
+}

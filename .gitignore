@@ -1,0 +1,9 @@
+.DS_Store
+node_modules
+.env
+.vscode
+*.log
+*.sublime-workspace
+*.sublime-project
+jsconfig.json
+typings/*
