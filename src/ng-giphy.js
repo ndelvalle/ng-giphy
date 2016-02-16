@@ -5,8 +5,18 @@
     .directive('giphySearch', giphySearch)
     .directive('giphyGif', giphyGif)
     .directive('giphyRand', giphyRand)
-    .factory('giphy', giphyService);
-
+    .factory('giphy', giphyService)
+    .provider('giphyApiKey', GiphyApiKey)
+    .config(setKey);
+    
+  /**
+   * Configure the provider to use the beta key
+   */
+  setKey.$inject = ['giphyApiKeyProvider'];
+  function setKey(giphyApiKeyProvider) {
+    giphyApiKeyProvider.setKey('dc6zaTOxFJmzC');
+  }
+  
   /**
    * Directive: search gif
    */
@@ -89,12 +99,12 @@
   /**
    * Services to interact with the giphy API endpoints
    */
-  giphyService.$inject = ['$http'];
-  function giphyService($http) {
+  giphyService.$inject = ['$http', 'giphyApiKey'];
+  function giphyService($http, giphyApiKey) {
     var url ={
-      random: 'http://api.giphy.com/v1/gifs/random?api_key=dc6zaTOxFJmzC',
-      search: 'http://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC',
-      byId: 'http://api.giphy.com/v1/gifs/%s?api_key=dc6zaTOxFJmzC'
+      random: 'http://api.giphy.com/v1/gifs/random?api_key=' + giphyApiKey.key,
+      search: 'http://api.giphy.com/v1/gifs/search?api_key=' + giphyApiKey.key,
+      byId: 'http://api.giphy.com/v1/gifs/%s?api_key=' + giphyApiKey.key
     };
 
     /**
@@ -142,9 +152,25 @@
       var words = q.split(' ');
       q = words.join('+')
       return $http.get(url.random + '&tag=' + q).then(function (res) {
-        console.log(res.data, url.random + '&tag=' + q);
         return res.data.data.image_url;
       });
+    }
+  }
+  
+  /**
+   * Giphy API key provider
+   */
+  function GiphyApiKey() {
+    var key = 'dc6zaTOxFJmzC';
+  
+    return {
+      setKey: function(value) {
+        key = value;
+      },
+    
+      $get: function () {
+        return { key: key };
+      }
     }
   }
 
