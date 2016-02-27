@@ -1,5 +1,4 @@
 {
-  "es5": true,
   "strict": true,
   "indent": 2,
   "quotmark": "single",
