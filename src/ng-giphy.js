@@ -2,176 +2,184 @@
   'use strict';
 
   angular.module('ng-giphy', [])
-    .directive('giphySearch', giphySearch)
-    .directive('giphyGif', giphyGif)
-    .directive('giphyRand', giphyRand)
-    .factory('giphy', giphyService)
-    .provider('giphyApiKey', GiphyApiKey)
-    .config(setKey);
-    
-  /**
-   * Configure the provider to use the beta key
-   */
-  setKey.$inject = ['giphyApiKeyProvider'];
-  function setKey(giphyApiKeyProvider) {
-    giphyApiKeyProvider.setKey('dc6zaTOxFJmzC');
+
+    .directive('giphyFind',  findGiphy)
+    .directive('giphyId',    findGiphyById)
+    .directive('giphyRand',  findRandGiphy)
+
+    .factory('giphy',        giphyService)
+    .provider('giphyConfig', giphyConfig)
+
+    .config(ngGiphyConfig)
+    .run(templateCache);
+
+  // configure the provider to use the beta key
+  ngGiphyConfig.$inject = ['giphyConfigProvider'];
+  /* @ngInject */
+  function ngGiphyConfig(giphyConfigProvider) {
+    giphyConfigProvider.setKey('dc6zaTOxFJmzC');
   }
-  
+
   /**
-   * Directive: search gif
+   * Directive: find gif by tag
    */
-  function giphySearch() {
+  function findGiphy() {
     return {
       scope: {
-        q     : '=',
+        q     : '=giphyQ',
         rating: '='
       },
-      controller: giphyController,
+      controller: findGiphyController,
       controllerAs: 'vm',
       bindToController: true,
-      template: '<img ng-src="{{ vm.giphysrc }}">'
+      templateUrl: 'imgTemplate.html'
     };
   }
 
-  giphyController.$inject = ['giphy'];
-  function giphyController(giphy) {
+  findGiphyController.$inject = ['giphy'];
+  /* @ngInject */
+  function findGiphyController(giphy) {
+    /* jshint validthis: true */
     var vm = this;
 
-    var q = vm.q || 'cat';
-    giphy.search(q).then(function (res) {
+    giphy.find(vm.q).then(function (res) {
       vm.giphysrc = res;
     });
   }
 
 
   /**
-   * Directive: Specific gif by id
+   * Directive: find gif by id
    */
-  function giphyGif() {
+  function findGiphyById() {
     return {
       scope: {
-        id    : '=',
+        id    : '=giphyId',
         rating: '='
       },
-      controller: giphyGifController,
+      controller: findGiphyByIdController,
       controllerAs: 'vm',
       bindToController: true,
-      template: '<img ng-src="{{ vm.giphysrc }}">'
+      templateUrl: 'imgTemplate.html'
     };
   }
 
-  giphyGifController.$inject = ['giphy'];
-  function giphyGifController(giphy) {
+  findGiphyByIdController.$inject = ['giphy'];
+  /* @ngInject */
+  function findGiphyByIdController(giphy) {
+    /* jshint validthis: true */
     var vm = this;
 
-    var id = vm.id || 'YyKPbc5OOTSQE';
-    giphy.byId(id).then(function (res) {
-      vm.giphysrc = res;
-    });
-  }
-  
-  /**
-   * Directive: Random gif by tags
-   */
-  function giphyRand() {
-    return {
-      scope: {
-        q     : '=',
-        rating: '='
-      },
-      controller: giphyRandController,
-      controllerAs: 'vm',
-      bindToController: true,
-      template: '<img ng-src="{{ vm.giphysrc }}">'
-    };
-  }
-
-  giphyRandController.$inject = ['giphy'];
-  function giphyRandController(giphy) {
-    var vm = this;
-
-    var q = vm.q || 'YyKPbc5OOTSQE';
-    giphy.random(q).then(function (res) {
+    giphy.findById(vm.id).then(function (res) {
       vm.giphysrc = res;
     });
   }
 
   /**
-   * Services to interact with the giphy API endpoints
+   * Directive: find random gif by tag
    */
-  giphyService.$inject = ['$http', 'giphyApiKey'];
-  function giphyService($http, giphyApiKey) {
-    var url ={
-      random: 'http://api.giphy.com/v1/gifs/random?api_key=' + giphyApiKey.key,
-      search: 'http://api.giphy.com/v1/gifs/search?api_key=' + giphyApiKey.key,
-      byId: 'http://api.giphy.com/v1/gifs/%s?api_key=' + giphyApiKey.key
+  function findRandGiphy() {
+    return {
+      scope: {
+        q     : '=giphyQ',
+        rating: '='
+      },
+      controller: findRandGiphyController,
+      controllerAs: 'vm',
+      bindToController: true,
+      templateUrl: 'imgTemplate.html'
+    };
+  }
+
+  findRandGiphyController.$inject = ['giphy'];
+  /* @ngInject */
+  function findRandGiphyController(giphy) {
+    /* jshint validthis: true */
+    var vm = this;
+
+    giphy.random(vm.q).then(function (res) {
+      vm.giphysrc = res;
+    });
+  }
+
+
+  // services to interact with Giphy API endpoints
+  giphyService.$inject = ['$http', 'giphyConfig'];
+  /* @ngInject */
+  function giphyService($http, giphyConfig) {
+
+    var baseUrl = 'http://api.giphy.com/v1/gifs';
+
+    var url = {
+      random   : baseUrl + '/random?api_key=' + giphyConfig.key,
+      find     : baseUrl + '/search?api_key=' + giphyConfig.key,
+      findById : baseUrl + '/%s?api_key='     + giphyConfig.key
+    };
+
+    // expose the service API
+    return {
+      find     : find,
+      findById : findById,
+      random   : random
     };
 
     /**
-     * Expose the service API
-     */
-    return {
-      search: search,
-      random: random,
-      byId: byId
-    };
-
-    /**
-     * Gets a search gif url
-     * 
+     * Gets a gif url searching by tag
+     *
      * @param {string} query
      * @return {string} gif url
      */
-    function search(q){
-      var words = q.split(' ');
-      q = words.join('+')
-      return $http.get(url.search + '&q=' + q).then(function (res) {
+    function find(q){
+      var query = q.constructor === Array ? q.join('+') : q;
+
+      return $http.get(url.find + '&q=' + query).then(function (res) {
         return res.data.data[0].images.original.url;
       });
     }
-    
+
    /**
-    * Returns a giphy url by query its ID.
+    * Gets a gif url searching by id
     *
     * @param {string} gif id
     * @return {string} gif url
     */
-    function byId(id){
-      return $http.get( url.byId.replace('%s', id) ).then(function (res) {
+    function findById(id){
+      return $http.get(url.findById.replace('%s', id)).then(function (res) {
         return res.data.data.images.original.url;
       });
     }
-    
+
     /**
-     * Gets a random gif url by tags
-     * 
+     * Gets a random gif url searching by tag
+     *
      * @param {string} query
      * @return {string} gif url
      */
     function random(q){
-      var words = q.split(' ');
-      q = words.join('+')
-      return $http.get(url.random + '&tag=' + q).then(function (res) {
+      var query = q.constructor === Array ? q.join('+') : q;
+      return $http.get(url.random + '&tag=' + query).then(function (res) {
         return res.data.data.image_url;
       });
     }
   }
-  
-  /**
-   * Giphy API key provider
-   */
-  function GiphyApiKey() {
-    var key = 'dc6zaTOxFJmzC';
-  
-    return {
-      setKey: function(value) {
-        key = value;
-      },
-    
-      $get: function () {
-        return { key: key };
-      }
-    }
+
+
+  templateCache.$inject = ['$templateCache'];
+  /* @ngInject */
+  function templateCache($templateCache) {
+    $templateCache.put('imgTemplate.html', '<img ng-src="{{ vm.giphysrc }}">');
+  }
+
+  // giphy API key provider
+  function giphyConfig() {
+    /* jshint validthis: true */
+    this.setKey = function(value) {
+      this.key = value;
+    };
+
+    this.$get = function() {
+      return this;
+    };
   }
 
 })();
