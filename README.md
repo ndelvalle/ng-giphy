@@ -31,12 +31,32 @@ An angular module that leverages the awesome [giphy API](https://github.com/Giph
     angular.module('myApp', [ngGiphy])
     ```
 
+#### Configuration
+The Giphy API is open to the public. They have instituted a public beta key system to let anyone try it out. The API key is required for all endpoints.
+In this module, for test purposes we use the public beta key: "dc6zaTOxFJmzC”. Please use this key while you develop your application and experiment with your integrations. To request a production key or get more information please visit [this link](https://github.com/Giphy/GiphyAPI#request-a-production-key).
+
+If you are using a production key use the ng-giphy config provider to set it up:
+
+```js
+angular.module('myApp', ['ng-giphy'])
+  .config(runConfig);
+
+runConfig.$inject = ['giphyConfigProvider'];
+function runConfig(giphyConfigProvider) {
+  // set your private key here
+  giphyConfigProvider.setKey('dc6zaTOxFJmzC');
+}
+```
+
 #### Service
 
 1. Add `giphy` dependency injection into your controller, service etc.
 
     ```js
-    Controller.$inject = ['giphy'];
+    MyController.$inject = ['giphy'];
+    function MyController(giphy){
+      // use giphy service
+    }
     ```
 2. Use one of the methods described below
 
