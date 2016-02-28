@@ -26,7 +26,7 @@
   function findGiphy() {
     return {
       scope: {
-        q     : '=giphyQ',
+        q     : '=giphyTag',
         rating: '='
       },
       controller: findGiphyController,
@@ -81,7 +81,7 @@
   function findRandGiphy() {
     return {
       scope: {
-        q     : '=giphyQ',
+        q     : '=giphyTag',
         rating: '='
       },
       controller: findRandGiphyController,
