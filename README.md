@@ -1,4 +1,5 @@
-# ng-giphy
+# ng-giphy [![npm version](https://badge.fury.io/js/ng-giphy.svg)](https://badge.fury.io/js/ng-giphy)
+
 An angular module that leverages the awesome [giphy API](https://github.com/Giphy/GiphyAPI) to use it on angular applications
 
 ## Usage:
