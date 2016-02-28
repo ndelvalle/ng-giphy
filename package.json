@@ -8,6 +8,7 @@
     "type": "git",
     "url": "git+https://github.com/ndelvalle/ng-giphy.git"
   },
+  "main": "index.js",
   "keywords": [
     "angular",
     "angularjs",
