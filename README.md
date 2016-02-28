@@ -72,7 +72,7 @@ giphy.random('cat').then(function(gifUrl) {
 | giphy-find-id | Gif by id           | giphy-id: Gif id                |
 | giphy-rand    | Random Gif by tag/s | giphy-tag: Tag or array of Tags |
 
-#### Usage example
+##### Usage example
 ```html
 <giphy-find giphy-tag='["person", "funny"]'></giphy-find>
 <giphy-find-id giphy-id='"qTpK7CsOq6T84"'></giphy-find-id>
