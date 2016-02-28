@@ -53,7 +53,10 @@ function runConfig(giphyConfigProvider) {
 1. Add `giphy` dependency injection into your controller, service etc.
 
     ```js
-    Controller.$inject = ['giphy'];
+    MyController.$inject = ['giphy'];
+    function MyController(giphy){
+      // use giphy service
+    }
     ```
 2. Use one of the methods described below
 
