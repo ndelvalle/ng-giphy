@@ -4,7 +4,7 @@
   "authors": [
     "ndelvalle <nicolas.delvalle@gmail.com>"
   ],
-  "description": "An angular module that integrates the awesome giphy api",
+  "description": "An angular module that leverages the awesome giphy API to use it on angular applications",
   "dependencies": {
     "angular": "^1.4.9"
   },
