@@ -71,15 +71,15 @@ function runConfig(giphyConfigProvider) {
 
 ```js
 giphy.find(['cat', 'funny']).then(function(gifUrl) {
-    // do something with gifUrl
+  // do something with gifUrl
 });
         
 giphy.findById('qTpK7CsOq6T84').then(function(gifUrl) {
-    // do something with gifUrl
+  // do something with gifUrl
 });
 
 giphy.random('cat').then(function(gifUrl) {
-    // do something with gifUrl
+  // do something with gifUrl
 });
 ```
 
@@ -87,7 +87,7 @@ giphy.random('cat').then(function(gifUrl) {
 
 #### Directives
 
-| Name          | Description         | Aattributes                     |
+| Name          | Description         | Attributes                     |
 | ------------- |:-------------------:| -------------------------------:|
 | giphy-find    | Gif by tag/s        |  giphy-tag: Tag or array of Tags|
 | giphy-find-id | Gif by id           | giphy-id: Gif id                |
