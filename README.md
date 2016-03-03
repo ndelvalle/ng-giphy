@@ -1,5 +1,5 @@
 # ng-giphy
-An angular module that leverages the awesome [giphy API](https://github.com/Giphy/GiphyAPI) to use it on angular applications
+An angular module that leverages the [giphy API](https://github.com/Giphy/GiphyAPI) to use it on angular applications
 
 ## Usage:
 
@@ -60,25 +60,37 @@ function runConfig(giphyConfigProvider) {
     ```
 2. Use one of the methods described below
 
-    | Method        | Params              | Returns                    |
-    | ------------- |:-------------------:| --------------------------:|
-    | find          | Tag or array of Tags| A promise with the Gif url |
-    | findById      | Id                  | A promise with the Gif url |
-    | random        | Tag or array of Tags| A promise with the Gif url |
+    | Method        | Params                                                     | Returns                             |
+    | ------------- |:----------------------------------------------------------:| -----------------------------------:|
+    | find          | 1: Tag or array of Tags, 2: Boolean, should return an url? | A promise with the Gif or a Gif url |
+    | findById      | 1: Id, 2: Boolean, should return an url?                   | A promise with the Gif or a Gif url |
+    | random        | 1: Tag or array of Tags, 2: Boolean, should return an url? | A promise with the Gif or a Gif url |
 
 ##### Usage example:
 
 ```js
-giphy.find(['cat', 'funny']).then(function(gifUrl) {
-    // do something with gifUrl
-});
-        
-giphy.findById('qTpK7CsOq6T84').then(function(gifUrl) {
-    // do something with gifUrl
+giphy.find(['cat', 'funny'], true).then(function(gifUrl) {
+  // do something with gifUrl
 });
 
-giphy.random('cat').then(function(gifUrl) {
-    // do something with gifUrl
+giphy.find(['cat', 'funny']).then(function(gif) {
+  // do something with gif object
+});
+        
+giphy.findById('qTpK7CsOq6T84', true).then(function(gifUrl) {
+  // do something with gifUrl
+});
+
+giphy.findById('qTpK7CsOq6T84').then(function(gif) {
+  // do something with gif object
+});
+
+giphy.random('cat', true).then(function(gifUrl) {
+  // do something with gifUrl
+});
+
+giphy.random('cat').then(function(gif) {
+  // do something with gif object
 });
 ```
 
