@@ -1,28 +1,26 @@
-var gulp  = require('gulp');
-var gutil = require('gulp-util');
+var gulp        = require('gulp'),
+    gutil       = require('gulp-util'),
 
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var sourcemaps = require('gulp-sourcemaps');
+    concat      = require('gulp-concat'),
+    uglify      = require('gulp-uglify'),
+    sourcemaps  = require('gulp-sourcemaps'),
 
-var ngAnnotate = require('gulp-ng-annotate');
-var bytediff = require('gulp-bytediff');
+    ngAnnotate  = require('gulp-ng-annotate'),
+    bytediff    = require('gulp-bytediff'),
 
-var jshint = require('gulp-jshint');
-var stylish = require('jshint-stylish');
+    jshint      = require('gulp-jshint'),
+    stylish     = require('jshint-stylish'),
 
-var paths = {
-  source: 'src/ng-giphy.js',
-  dest  : 'dist'
-};
+    paths       = require('./helpers/paths'),
+    tasks       = require('./helpers/tasks');
 
-gulp.task('jshint', function() {
+gulp.task(tasks.js.hint, function() {
   return gulp.src(paths.source)
     .pipe(jshint())
     .pipe(jshint.reporter(stylish));
 });
 
-gulp.task('build-js', ['jshint'], function() {
+gulp.task(tasks.js.build, [tasks.js.hint], function() {
   return gulp.src(paths.source)
     .pipe(sourcemaps.init())
     .pipe(concat('ng-giphy.min.js', { newLine: ';' }))
@@ -39,8 +37,8 @@ gulp.task('build-js', ['jshint'], function() {
     .pipe(gulp.dest(paths.dest));
 });
 
-gulp.task('watch', function(){
-    gulp.watch('src/**/*.js', ['build-js']);
+gulp.task(tasks.watch, function(){
+    gulp.watch(paths.all, [tasks.js.build]);
 });
 
-gulp.task('default', ['build-js']);
+gulp.task('default', [tasks.js.build, tasks.watch]);
