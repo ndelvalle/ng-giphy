@@ -1,6 +1,6 @@
 'use strict';
 const paths = {
-  source: 'src/ng-giphy.js',
+  source: 'src/**/*.js',
   all: 'src/**/*.js',
   dest  : 'dist'
 }

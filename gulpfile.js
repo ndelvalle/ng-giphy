@@ -38,7 +38,7 @@ gulp.task(tasks.js.build, [tasks.js.hint], function() {
 });
 
 gulp.task(tasks.watch, function(){
-    gulp.watch(paths.all, [tasks.js.build]);
+    gulp.watch(paths.source, [tasks.js.build]);
 });
 
 gulp.task('default', [tasks.js.build, tasks.watch]);
