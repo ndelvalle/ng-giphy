@@ -1,18 +1,18 @@
-var gulp        = require('gulp'),
-    gutil       = require('gulp-util'),
+var gulp        = require('gulp');
+var gutil       = require('gulp-util');
 
-    concat      = require('gulp-concat'),
-    uglify      = require('gulp-uglify'),
-    sourcemaps  = require('gulp-sourcemaps'),
+var concat      = require('gulp-concat');
+var uglify      = require('gulp-uglify');
+var sourcemaps  = require('gulp-sourcemaps');
 
-    ngAnnotate  = require('gulp-ng-annotate'),
-    bytediff    = require('gulp-bytediff'),
+var ngAnnotate  = require('gulp-ng-annotate');
+var bytediff    = require('gulp-bytediff');
 
-    jshint      = require('gulp-jshint'),
-    stylish     = require('jshint-stylish'),
+var jshint      = require('gulp-jshint');
+var stylish     = require('jshint-stylish');
 
-    paths       = require('./helpers/paths'),
-    tasks       = require('./helpers/tasks');
+var paths       = require('./helpers/paths');
+var tasks       = require('./helpers/tasks');
 
 gulp.task(tasks.js.hint, function() {
   return gulp.src(paths.source)
