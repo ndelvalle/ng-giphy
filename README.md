@@ -81,15 +81,15 @@ function runConfig(giphyConfigProvider) {
 // tags: cat, funny
 // limit: 3
 // offset: 1
-giphy.find(['cat', 'funny'], 3, 1).then(function(gif) {
-  // do something with gif
+giphy.find(['cat', 'funny'], 3, 1).then(function(gifs) {
+  // do something with gif collection
 });
 
 // tags: cat
 // limit: 25 (Default)
 // offset: 0 (Default)
-giphy.findUrl('cat').then(function(gif) {
-  // do something with gifs url
+giphy.findUrl('cat').then(function(gifsUrl) {
+  // do something with gifs url collection
 });
 
 ```
