@@ -99,7 +99,7 @@
 
 
     /**
-     * Gets random gifs searching by tag
+     * Gets random gif searching by tag
      *
      * @param {String || Array<String>} tags
      * @return {String} gif
@@ -110,7 +110,7 @@
 
 
     /**
-     * Gets random gifs searching by tag
+     * Gets random gif searching by tag
      *
      * @param {String || Array<String>} tags
      * @return {String} gif url
