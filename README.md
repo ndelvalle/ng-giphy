@@ -106,7 +106,7 @@ giphy.findUrl('cat').then(function(gifsUrl) {
 
 ##### Usage example
 ```html
-<giphy-find giphy-tag='["person", "funny"]'></giphy-find>
-<giphy-find-id giphy-id='"qTpK7CsOq6T84"'></giphy-find-id>
-<giphy-rand giphy-tag='["meme"]'></giphy-rand>
+<giphy-find g-tag='["person", "funny"]'></giphy-find>
+<giphy-id g-id='"qTpK7CsOq6T84"'></giphy-id>
+<giphy-rand g-tag='["meme"]'></giphy-rand>
 ```
