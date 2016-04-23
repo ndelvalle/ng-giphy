@@ -10,7 +10,7 @@
   function findGiphy() {
     return {
       scope: {
-        q     : '=giphyTag',
+        q: '=gTag',
         rating: '='
       },
       controller: findGiphyController,
@@ -26,8 +26,8 @@
     /* jshint validthis: true */
     var vm = this;
 
-    giphy.find(vm.q, true).then(function (res) {
-      vm.giphysrc = res;
+    giphy.findUrl(vm.q, 1).then(function (res) {
+      vm.giphysrc = res[0];
     });
   }
 

@@ -10,7 +10,7 @@
   function findRandGiphy() {
     return {
       scope: {
-        q     : '=giphyTag',
+        q: '=gTag',
         rating: '='
       },
       controller: findRandGiphyController,
@@ -26,7 +26,7 @@
     /* jshint validthis: true */
     var vm = this;
 
-    giphy.random(vm.q, true).then(function (res) {
+    giphy.findRandomUrl(vm.q).then(function (res) {
       vm.giphysrc = res;
     });
   }
