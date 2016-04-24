@@ -154,8 +154,14 @@
       });
     }
 
-
-    function responseMapper(response, returnUrl, limit) {
+    /**
+     * Map the response
+     *
+     * @param {Collection} response
+     * @param {Boolean} returnUrl, weather should return a gif or a gif url
+     * @return {Collection} mapped response
+     */
+    function responseMapper(response, returnUrl) {
       if (!returnUrl) return response;
       var isArray = response.constructor === Array;
       if (!isArray) return response.images.original.url;
@@ -164,6 +170,15 @@
       });
     }
 
+
+    /**
+     * Map http get params
+     *
+     * @param {String || Array<String>} tags
+     * @param {Number} limit
+     * @param {Number} offset
+     * @return {Object} returns params ready to use in http get request
+     */
     function paramsMapper(tags, limit, offset) {
       var params = {};
       if (tags) params.q = tags.constructor === Array ? tags.join('+') : tags;
