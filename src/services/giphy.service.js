@@ -177,7 +177,7 @@
      * @param {String || Array<String>} tags
      * @param {Number} limit
      * @param {Number} offset
-     * @return {Object} returns params ready to use in http get request
+     * @returns {Object} params ready to use in http get request
      */
     function paramsMapper(tags, limit, offset) {
       var params = {};
