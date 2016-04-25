@@ -9,7 +9,7 @@ An angular module that leverages the [giphy API](https://github.com/Giphy/GiphyA
     $ bower install ng-giphy --save
     $ npm install ng-giphy --save
     ```
-    
+
 2. Include the supplied JS file. Skip if you use Commonjs modules
 
     ``` html
@@ -18,14 +18,14 @@ An angular module that leverages the [giphy API](https://github.com/Giphy/GiphyA
     <!-- npm -->
     <script type='text/javascript' src='node_modules/ng-giphy/dist/ng-giphy.min.js'></script>
     ```
-    
+
 3. Add ng-giphy dependency to your app
 
     ``` js
     angular.module('myApp', ['ng-giphy'])
     ```
     If you use Commonjs modules:
-  
+
     ```js
     var ngGiphy = require('ng-giphy');
     angular.module('myApp', [ngGiphy])
@@ -60,53 +60,53 @@ function runConfig(giphyConfigProvider) {
     ```
 2. Use one of the methods described below
 
-    | Method        | Params                                                     | Returns                             |
-    | ------------- |:----------------------------------------------------------:| -----------------------------------:|
-    | find          | 1: Tag or array of Tags, 2: Boolean, should return an url? | A promise with the Gif or a Gif url |
-    | findById      | 1: Id, 2: Boolean, should return an url?                   | A promise with the Gif or a Gif url |
-    | random        | 1: Tag or array of Tags, 2: Boolean, should return an url? | A promise with the Gif or a Gif url |
+    | Method              | Arguments            | Returns                 |
+    | ------------------  |:---------------------:| ---------------------:|
+    | find                    | tags, limit, offset  | Gif Collection        |
+    | findUrl               | tags, limit, offset  | Gif url's Collection |
+    | findById             | id                         | Gif                          |
+    | findUrlById        | id                         | Gif url                     |
+    | findRandom       | tags                     | Gif                          |
+    | findRandomUrl  | tags                     | Gif url                     |
+    | findTrending      | limit, offset         |  Gif Collection         |
+    | findTrendingUrl | limit, offset         | Gif url's Collection   |
+
+	- `Gif`: [sample](https://github.com/Giphy/GiphyAPI#sample-response-get-gif-by-id)
+	- `Gif url`:  [sample](http://media2.giphy.com/media/xT0BKK6YMM8ItytlkY/giphy.gif)
+	- `Gif Collection`:  [sample](https://github.com/Giphy/GiphyAPI#sample-response-search)
 
 ##### Usage example:
 
 ```js
-giphy.find(['cat', 'funny'], true).then(function(gifUrl) {
-  // do something with gifUrl
+// tags: cat, funny
+// limit: 3
+// offset: 1
+giphy.find(['cat', 'funny'], 3, 1).then(function(gifs) {
+  // do something with gif collection
 });
 
-giphy.find(['cat', 'funny']).then(function(gif) {
-  // do something with gif object
-});
-        
-giphy.findById('qTpK7CsOq6T84', true).then(function(gifUrl) {
-  // do something with gifUrl
-});
-
-giphy.findById('qTpK7CsOq6T84').then(function(gif) {
-  // do something with gif object
+// tags: cat
+// limit: 25 (Default)
+// offset: 0 (Default)
+giphy.findUrl('cat').then(function(gifsUrl) {
+  // do something with gifs url collection
 });
 
-giphy.random('cat', true).then(function(gifUrl) {
-  // do something with gifUrl
-});
-
-giphy.random('cat').then(function(gif) {
-  // do something with gif object
-});
 ```
 
-    
+
 
 #### Directives
 
-| Name          | Description         | Aattributes                     |
-| ------------- |:-------------------:| -------------------------------:|
-| giphy-find    | Gif by tag/s        |  giphy-tag: Tag or array of Tags|
-| giphy-find-id | Gif by id           | giphy-id: Gif id                |
-| giphy-rand    | Random Gif by tag/s | giphy-tag: Tag or array of Tags |
+| Name          | Description         | Attributes |
+| ------------- |:-------------------:| ----------:|
+| giphy-find    | Gif by tag/s        | giphy-tag  |
+| giphy-find-id | Gif by id           | giphy-id   |
+| giphy-rand    | Random Gif by tag/s | giphy-tag  |
 
 ##### Usage example
 ```html
-<giphy-find giphy-tag='["person", "funny"]'></giphy-find>
-<giphy-find-id giphy-id='"qTpK7CsOq6T84"'></giphy-find-id>
-<giphy-rand giphy-tag='["meme"]'></giphy-rand>
+<giphy-find g-tag='["person", "funny"]'></giphy-find>
+<giphy-id g-id='"qTpK7CsOq6T84"'></giphy-id>
+<giphy-rand g-tag='["meme"]'></giphy-rand>
 ```

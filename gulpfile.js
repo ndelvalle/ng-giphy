@@ -26,9 +26,9 @@ gulp.task(tasks.js.build, [tasks.js.hint], function() {
     .pipe(concat('ng-giphy.min.js', { newLine: ';' }))
     // Annotate before uglify so the code get's min'd properly.
     .pipe(ngAnnotate({
-        // true helps add where @ngInject is not used. It infers.
-        // Doesn't work with resolve, so we must be explicit there
-        add: true
+      // true helps add where @ngInject is not used. It infers.
+      // Doesn't work with resolve, so we must be explicit there
+      add: true
     }))
     .pipe(bytediff.start())
     .pipe(uglify({ mangle: true }))
@@ -38,7 +38,7 @@ gulp.task(tasks.js.build, [tasks.js.hint], function() {
 });
 
 gulp.task(tasks.watch, function(){
-    gulp.watch(paths.source, [tasks.js.build]);
+  gulp.watch(paths.source, [tasks.js.build]);
 });
 
 gulp.task('default', [tasks.js.build, tasks.watch]);

@@ -10,7 +10,7 @@
   function findGiphyById() {
     return {
       scope: {
-        id    : '=giphyId',
+        id: '=gId',
         rating: '='
       },
       controller: findGiphyByIdController,
@@ -26,8 +26,8 @@
     /* jshint validthis: true */
     var vm = this;
 
-    giphy.findById(vm.id, true).then(function (res) {
-      vm.giphysrc = res;
+    giphy.findUrlById(vm.id).then(function (url) {
+      vm.giphysrc = url;
     });
   }
 })();
