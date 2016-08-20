@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>ng-giphy by ndelvalle</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">ng-giphy</h1>
+      <h2 class="project-tagline">:metal: An angular module that leverages the giphy API to use it on angular applications</h2>
+      <a href="https://github.com/ndelvalle/ng-giphy" class="btn">View on GitHub</a>
+      <a href="https://github.com/ndelvalle/ng-giphy/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/ndelvalle/ng-giphy/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="ng-giphy" class="anchor" href="#ng-giphy" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ng-giphy</h1>
+
+<p>An angular module that leverages the <a href="https://github.com/Giphy/GiphyAPI">giphy API</a> to use it on angular applications</p>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage:</h2>
+
+<ol>
+<li>
+<p>Install ng-cooltip from <em>bower</em>, <em>npm</em> or import script manually</p>
+
+<pre><code>$ bower install ng-giphy --save
+$ npm install ng-giphy --save
+</code></pre>
+</li>
+<li>
+<p>Include the supplied JS file. Skip if you use Commonjs modules</p>
+
+<div class="highlight highlight-text-html-basic"><pre><span class="pl-c">&lt;!-- Bower --&gt;</span>
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">'</span>bower_components/ng-giphy/dist/ng-giphy.min.js<span class="pl-pds">'</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;
+<span class="pl-c">&lt;!-- npm --&gt;</span>
+&lt;<span class="pl-ent">script</span> <span class="pl-e">type</span>=<span class="pl-s"><span class="pl-pds">'</span>text/javascript<span class="pl-pds">'</span></span> <span class="pl-e">src</span>=<span class="pl-s"><span class="pl-pds">'</span>node_modules/ng-giphy/dist/ng-giphy.min.js<span class="pl-pds">'</span></span>&gt;&lt;/<span class="pl-ent">script</span>&gt;</pre></div>
+</li>
+<li>
+<p>Add ng-giphy dependency to your app</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>myApp<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>ng-giphy<span class="pl-pds">'</span></span>])</pre></div>
+
+<p>If you use Commonjs modules:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-k">var</span> ngGiphy <span class="pl-k">=</span> <span class="pl-c1">require</span>(<span class="pl-s"><span class="pl-pds">'</span>ng-giphy<span class="pl-pds">'</span></span>);
+<span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>myApp<span class="pl-pds">'</span></span>, [ngGiphy])</pre></div>
+</li>
+</ol>
+
+<h4>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Configuration</h4>
+
+<p>The Giphy API is open to the public. They have instituted a public beta key system to let anyone try it out. The API key is required for all endpoints.
+In this module, for test purposes we use the public beta key: "dc6zaTOxFJmzC”. Please use this key while you develop your application and experiment with your integrations. To request a production key or get more information please visit <a href="https://github.com/Giphy/GiphyAPI#request-a-production-key">this link</a>.</p>
+
+<p>If you are using a production key use the ng-giphy config provider to set it up:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">angular</span>.<span class="pl-en">module</span>(<span class="pl-s"><span class="pl-pds">'</span>myApp<span class="pl-pds">'</span></span>, [<span class="pl-s"><span class="pl-pds">'</span>ng-giphy<span class="pl-pds">'</span></span>])
+  .<span class="pl-en">config</span>(runConfig);
+
+<span class="pl-smi">runConfig</span>.<span class="pl-smi">$inject</span> <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>giphyConfigProvider<span class="pl-pds">'</span></span>];
+<span class="pl-k">function</span> <span class="pl-en">runConfig</span>(<span class="pl-smi">giphyConfigProvider</span>) {
+  <span class="pl-c">// set your private key here</span>
+  <span class="pl-smi">giphyConfigProvider</span>.<span class="pl-en">setKey</span>(<span class="pl-s"><span class="pl-pds">'</span>dc6zaTOxFJmzC<span class="pl-pds">'</span></span>);
+}</pre></div>
+
+<h4>
+<a id="service" class="anchor" href="#service" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Service</h4>
+
+<ol>
+<li>
+<p>Add <code>giphy</code> dependency injection into your controller, service etc.</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">MyController</span>.<span class="pl-smi">$inject</span> <span class="pl-k">=</span> [<span class="pl-s"><span class="pl-pds">'</span>giphy<span class="pl-pds">'</span></span>];
+<span class="pl-k">function</span> <span class="pl-en">MyController</span>(<span class="pl-smi">giphy</span>){
+  <span class="pl-c">// use giphy service</span>
+}</pre></div>
+</li>
+<li>
+<p>Use one of the methods described below</p>
+
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th align="center">Arguments</th>
+<th align="right">Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>find</td>
+<td align="center">tags, limit, offset</td>
+<td align="right">Gif Collection</td>
+</tr>
+<tr>
+<td>findUrl</td>
+<td align="center">tags, limit, offset</td>
+<td align="right">Gif url's Collection</td>
+</tr>
+<tr>
+<td>findById</td>
+<td align="center">id</td>
+<td align="right">Gif</td>
+</tr>
+<tr>
+<td>findUrlById</td>
+<td align="center">id</td>
+<td align="right">Gif url</td>
+</tr>
+<tr>
+<td>findRandom</td>
+<td align="center">tags</td>
+<td align="right">Gif</td>
+</tr>
+<tr>
+<td>findRandomUrl</td>
+<td align="center">tags</td>
+<td align="right">Gif url</td>
+</tr>
+<tr>
+<td>findTrending</td>
+<td align="center">limit, offset</td>
+<td align="right">Gif Collection</td>
+</tr>
+<tr>
+<td>findTrendingUrl</td>
+<td align="center">limit, offset</td>
+<td align="right">Gif url's Collection</td>
+</tr>
+</tbody>
+</table>
+
+<ul>
+<li>
+<code>Gif</code>: <a href="https://github.com/Giphy/GiphyAPI#sample-response-get-gif-by-id">sample</a>
+</li>
+<li>
+<code>Gif url</code>:  <a href="http://media2.giphy.com/media/xT0BKK6YMM8ItytlkY/giphy.gif">sample</a>
+</li>
+<li>
+<code>Gif Collection</code>:  <a href="https://github.com/Giphy/GiphyAPI#sample-response-search">sample</a>
+</li>
+</ul>
+</li>
+</ol>
+
+<h5>
+<a id="usage-example" class="anchor" href="#usage-example" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage example:</h5>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-c">// tags: cat, funny</span>
+<span class="pl-c">// limit: 3</span>
+<span class="pl-c">// offset: 1</span>
+<span class="pl-smi">giphy</span>.<span class="pl-c1">find</span>([<span class="pl-s"><span class="pl-pds">'</span>cat<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>funny<span class="pl-pds">'</span></span>], <span class="pl-c1">3</span>, <span class="pl-c1">1</span>).<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">gifs</span>) {
+  <span class="pl-c">// do something with gif collection</span>
+});
+
+<span class="pl-c">// tags: cat</span>
+<span class="pl-c">// limit: 25 (Default)</span>
+<span class="pl-c">// offset: 0 (Default)</span>
+<span class="pl-smi">giphy</span>.<span class="pl-en">findUrl</span>(<span class="pl-s"><span class="pl-pds">'</span>cat<span class="pl-pds">'</span></span>).<span class="pl-en">then</span>(<span class="pl-k">function</span>(<span class="pl-smi">gifsUrl</span>) {
+  <span class="pl-c">// do something with gifs url collection</span>
+});
+</pre></div>
+
+<h4>
+<a id="directives" class="anchor" href="#directives" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Directives</h4>
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th align="center">Description</th>
+<th align="right">Attributes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>giphy-find</td>
+<td align="center">Gif by tag/s</td>
+<td align="right">giphy-tag</td>
+</tr>
+<tr>
+<td>giphy-find-id</td>
+<td align="center">Gif by id</td>
+<td align="right">giphy-id</td>
+</tr>
+<tr>
+<td>giphy-rand</td>
+<td align="center">Random Gif by tag/s</td>
+<td align="right">giphy-tag</td>
+</tr>
+</tbody>
+</table>
+
+<h5>
+<a id="usage-example-1" class="anchor" href="#usage-example-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage example</h5>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">giphy</span><span class="pl-e">-find</span> <span class="pl-e">g-tag</span>=<span class="pl-s"><span class="pl-pds">'</span>["person", "funny"]<span class="pl-pds">'</span></span>&gt;&lt;/<span class="pl-ent">giphy</span><span class="pl-e">-find</span>&gt;
+&lt;<span class="pl-ent">giphy</span><span class="pl-e">-id</span> <span class="pl-e">g-id</span>=<span class="pl-s"><span class="pl-pds">'</span>"qTpK7CsOq6T84"<span class="pl-pds">'</span></span>&gt;&lt;/<span class="pl-ent">giphy</span><span class="pl-e">-id</span>&gt;
+&lt;<span class="pl-ent">giphy</span><span class="pl-e">-rand</span> <span class="pl-e">g-tag</span>=<span class="pl-s"><span class="pl-pds">'</span>["meme"]<span class="pl-pds">'</span></span>&gt;&lt;/<span class="pl-ent">giphy</span><span class="pl-e">-rand</span>&gt;</pre></div>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/ndelvalle/ng-giphy">ng-giphy</a> is maintained by <a href="https://github.com/ndelvalle">ndelvalle</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
