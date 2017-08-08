@@ -50,7 +50,7 @@
      * @return {Collection} gifs
      */
     function find(tags, limit, offset, rating){
-      return http.get(url.find, paramsMapper(tags, limit, offset))
+      return http.get(url.find, paramsMapper(tags, limit, offset, rating))
       .then(function(response) {
         return responseMapper(response, false, limit);
       });
@@ -66,7 +66,7 @@
      * @return {Collection} gifs
      */
     function findUrl(tags, limit, offset, rating){
-      return http.get(url.find, paramsMapper(tags, limit, offset))
+      return http.get(url.find, paramsMapper(tags, limit, offset, rating))
       .then(function(response) {
         return responseMapper(response, true, limit);
       });
@@ -105,7 +105,7 @@
      * @return {String} gif
      */
     function findRandom(tags, rating){
-      return http.get(url.random, paramsMapper(tags));
+      return http.get(url.random, paramsMapper(tags, rating));
     }
 
 
@@ -116,7 +116,7 @@
      * @return {String} gif url
      */
     function findRandomUrl(tags, rating){
-      return http.get(url.random, paramsMapper(tags))
+      return http.get(url.random, paramsMapper(tags, rating))
       .then(function(response) {
         return response.image_url;
       });
@@ -132,7 +132,7 @@
      * @return {Collection} gifs
      */
     function findTrending(limit, offset, rating) {
-      return http.get(url.trending, paramsMapper(undefined, limit, offset))
+      return http.get(url.trending, paramsMapper(undefined, limit, offset, rating))
       .then(function(response) {
         return responseMapper(response, false);
       });
@@ -148,7 +148,7 @@
      * @return {Collection} gifs url
      */
     function findTrendingUrl(limit, offset, rating) {
-      return http.get(url.trending, paramsMapper(undefined, limit, offset))
+      return http.get(url.trending, paramsMapper(undefined, limit, offset, rating))
       .then(function(response) {
         return responseMapper(response, true);
       });
