@@ -49,7 +49,7 @@
      * @param {Number} offset (optional) defaults to 0
      * @return {Collection} gifs
      */
-    function find(tags, limit, offset){
+    function find(tags, limit, offset, rating){
       return http.get(url.find, paramsMapper(tags, limit, offset))
       .then(function(response) {
         return responseMapper(response, false, limit);
@@ -65,7 +65,7 @@
      * @param {Number} offset (optional) defaults to 0
      * @return {Collection} gifs
      */
-    function findUrl(tags, limit, offset){
+    function findUrl(tags, limit, offset, rating){
       return http.get(url.find, paramsMapper(tags, limit, offset))
       .then(function(response) {
         return responseMapper(response, true, limit);
@@ -104,7 +104,7 @@
      * @param {String || Array<String>} tags
      * @return {String} gif
      */
-    function findRandom(tags){
+    function findRandom(tags, rating){
       return http.get(url.random, paramsMapper(tags));
     }
 
@@ -115,7 +115,7 @@
      * @param {String || Array<String>} tags
      * @return {String} gif url
      */
-    function findRandomUrl(tags){
+    function findRandomUrl(tags, rating){
       return http.get(url.random, paramsMapper(tags))
       .then(function(response) {
         return response.image_url;
@@ -131,7 +131,7 @@
      * @param {Number} offset (optional) defaults to 0
      * @return {Collection} gifs
      */
-    function findTrending(limit, offset) {
+    function findTrending(limit, offset, rating) {
       return http.get(url.trending, paramsMapper(undefined, limit, offset))
       .then(function(response) {
         return responseMapper(response, false);
@@ -147,7 +147,7 @@
      * @param {Number} offset (optional) defaults to 0
      * @return {Collection} gifs url
      */
-    function findTrendingUrl(limit, offset) {
+    function findTrendingUrl(limit, offset, rating) {
       return http.get(url.trending, paramsMapper(undefined, limit, offset))
       .then(function(response) {
         return responseMapper(response, true);
@@ -179,11 +179,12 @@
      * @param {Number} offset
      * @returns {Object} params ready to use in http get request
      */
-    function paramsMapper(tags, limit, offset) {
+    function paramsMapper(tags, limit, offset, rating) {
       var params = {};
       if (tags) params.q = tags.constructor === Array ? tags.join('+') : tags;
       if (limit) params.limit = limit;
       if (offset) params.offset = offset;
+      if (rating) params.rating = rating;
       return params;
     }
   }
