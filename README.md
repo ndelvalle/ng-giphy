@@ -62,13 +62,13 @@ function runConfig(giphyConfigProvider) {
 
     | Method              | Arguments            | Returns                 |
     | ------------------  |:---------------------:| ---------------------:|
-    | find                    | tags, limit, offset  | Gif Collection        |
-    | findUrl               | tags, limit, offset  | Gif url's Collection |
+    | find                    | tags, limit, offset, rating  | Gif Collection        |
+    | findUrl               | tags, limit, offset, rating  | Gif url's Collection |
     | findById             | id                         | Gif                          |
     | findUrlById        | id                         | Gif url                     |
     | findRandom       | tags                     | Gif                          |
     | findRandomUrl  | tags                     | Gif url                     |
-    | findTrending      | limit, offset         |  Gif Collection         |
+    | findTrending      | limit, offset, rating         |  Gif Collection         |
     | findTrendingUrl | limit, offset         | Gif url's Collection   |
 
 	- `Gif`: [sample](https://github.com/Giphy/GiphyAPI#sample-response-get-gif-by-id)
