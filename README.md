@@ -3,7 +3,7 @@ An angular module that leverages the [giphy API](https://github.com/Giphy/GiphyA
 
 ## Usage:
 
-1. Install ng-cooltip from _bower_, _npm_ or import script manually
+1. Install `ng-giphy` from _bower_, _npm_ or import script manually
 
     ```
     $ bower install ng-giphy --save
