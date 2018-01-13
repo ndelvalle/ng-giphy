@@ -9,8 +9,7 @@
   /* @ngInject */
   function giphyService($http, giphyConfig) {
 
-    var baseUrl = window.location.protocol === 'https' ? 'https://api.giphy.com/v1/gifs'
-      : 'http://api.giphy.com/v1/gifs';
+    var baseUrl = window.location.protocol + '://api.giphy.com/v1/gifs';
 
     var url = {
       random   : baseUrl + '/random',
