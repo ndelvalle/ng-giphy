@@ -9,7 +9,7 @@
   /* @ngInject */
   function giphyService($http, giphyConfig) {
 
-    var baseUrl = 'http://api.giphy.com/v1/gifs';
+    var baseUrl = 'https://api.giphy.com/v1/gifs';
 
     var url = {
       random   : baseUrl + '/random',
